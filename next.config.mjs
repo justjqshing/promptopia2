@@ -3,9 +3,11 @@ const nextConfig = {
     experimental: {
       appDir: true,
       serverComponentsExternalPackages: ["mongoose"],
+      
     },
     images: {
-      domains: ['lh3.googleusercontent.com'],
+      dangerouslyAllowSVG: true,
+      domains: ['lh3.googleusercontent.com', 'ui-avatars.com'],
     },
     webpack(config) {
       config.experiments = {

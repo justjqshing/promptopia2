@@ -9,7 +9,7 @@ const Form = ( {type, post, setPost, submitting, handleSubmit} ) => {
         {type} and share amazing prompts with the world and let your imagination run wild with any AI platform.
       </p>
 
-      <form className="mt-10 w-full max-w-2xl flex flex-col glassmorphism gap-7" onClick={handleSubmit}>
+      <form className="mt-10 w-full max-w-2xl flex flex-col glassmorphism gap-7" onSubmit={handleSubmit}>
         <label>
           <span className="font-satoshi font-semibold text-base text-gray-500">
             Your AI Prompt
