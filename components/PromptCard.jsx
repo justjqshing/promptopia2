@@ -1,9 +1,16 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from "react"
-import { usePathname, useRouter } from "next/navigation"
-import Image from "next/image"
-const PromptCard = ({ post }) => {
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { usePathname, useRouter } from "next/navigation";
+
+const PromptCard = ({ post}) => {
+  const { data: session } = useSession();
+  const pathName = usePathname();
+  const router = useRouter();
+
+  const [copied, setCopied] = useState("");
   const [image, setImage] = useState()
 
   useEffect(() => {
@@ -19,26 +26,58 @@ const PromptCard = ({ post }) => {
     } else {
       setImage(post.creator.image)
     }
-    // else {
-    //   const fecchImage = async () => {
-    //     const response = await fetch(`https://ui-avatars.com/api/?name=John+Doe`)
-
-        
-    //     setImage(response.url)
-    //   }
-    //   fecchImage()
-    // }
   }, [post])
 
+
+
   return (
-    <div className="prompt_card">
-      <div className="flex justify-between items-start gap-5">
-        <div>
-          <Image src={image} width={30} height={30}></Image>
+    <div className='prompt_card'>
+      <div className='flex justify-between items-start gap-5'>
+        <div
+          className='flex-1 flex justify-start items-center gap-3 cursor-pointer'
+        >
+          <Image
+            src={image}
+            alt='user_image'
+            width={40}
+            height={40}
+            className='rounded-full object-contain'
+          />
+
+          <div className='flex flex-col'>
+            <h3 className='font-satoshi font-semibold text-gray-900'>
+              {post.creator.username}
+            </h3>
+            <p className='font-inter text-sm text-gray-500'>
+              {post.creator.email}
+            </p>
+          </div>
+        </div>
+
+        <div className='copy_btn'>
+          <Image
+            src={
+              copied === post.prompt
+                ? "/assets/icons/tick.svg"
+                : "/assets/icons/copy.svg"
+            }
+            alt={copied === post.prompt ? "tick_icon" : "copy_icon"}
+            width={12}
+            height={12}
+          />
         </div>
       </div>
-    </div>
-  )
-}
 
-export default PromptCard
+      <p className='my-4 font-satoshi text-sm text-gray-700'>{post.prompt}</p>
+      <p
+        className='font-inter text-sm blue_gradient cursor-pointer'
+      >
+        #{post.tag}
+      </p>
+
+     
+    </div>
+  );
+};
+
+export default PromptCard;

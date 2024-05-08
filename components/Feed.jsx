@@ -5,16 +5,19 @@ import { useState, useEffect } from "react"
 
 import PromptCard from "./PromptCard"
 
-const PromptCardList = ({data, handleTagClick}) => {
+const PromptCardList = ({ data, handleTagClick }) => {
   return (
-    <div className="mt-16 prompt_layout">
-      {data.map((prompt) => (
-        <PromptCard key={prompt._id} post={prompt} handleTagClick={handleTagClick}/>
+    <div className='space-y-6 py-8 sm:columns-3 sm:gap-6 xl:columns-3'>
+      {data.map((post) => (
+        <PromptCard
+          key={post._id}
+          post={post}
+          handleTagClick={handleTagClick}
+        />
       ))}
     </div>
-  )
-}
-
+  );
+};
 const Feed = () => {
   const [searchText, setSearchText] = useState("")
   const [posts, setPosts] = useState([])
