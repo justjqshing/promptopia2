@@ -29,8 +29,9 @@ const Feed = () => {
     const fetchData = async () => {
       const response = await fetch("/api/prompt")
       const data = await response.json()
-
+      console.log('api call success');
       setPosts(data)
+      
     }
     fetchData()
   }, [])
